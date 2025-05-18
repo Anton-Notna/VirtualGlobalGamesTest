@@ -1,9 +1,13 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+    "com.omicronperson.disposablesubscriptions": "https://github.com/Anton-Notna/Disposable-Subscriptions-upm.git",
     "com.omicronperson.omicron-fsm": "https://github.com/Anton-Notna/OmicronFSM.git",
     "com.omicronperson.omicroncombinedeffects": "https://github.com/Anton-Notna/omicron-combined-effects.git",
     "com.omicronperson.omicrondamages": "https://github.com/Anton-Notna/omicron-damages-upm.git",
     "com.omicronperson.unityadvtriggers": "https://github.com/Anton-Notna/UnityAdvTriggers.git",
+    "com.svermeulen.extenject": "https://github.com/Mathijs-Bakker/Extenject.git?path=UnityProject/Assets/Plugins/Zenject/Source",
+    "com.unity.addressables": "1.21.21",
     "com.unity.ai.navigation": "2.0.0",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.ide.rider": "3.0.27",
