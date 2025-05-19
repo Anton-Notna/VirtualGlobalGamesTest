@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "bd0d502e6694c6f5593789b127cd3f6967eefd2f"
+      "hash": "4565119f5a1d2c48d701462d79adf840c39d9d67"
     },
     "com.omicronperson.omicron-fsm": {
       "version": "https://github.com/Anton-Notna/OmicronFSM.git",

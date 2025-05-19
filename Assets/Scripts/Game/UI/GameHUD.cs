@@ -31,7 +31,7 @@ namespace Game.UI
         {
             _heath.Init(_playerSetup.Health.AsUpdatable);
             _ammo.Init(_ammoInventory.Units);
-            _inventory.Init(_itemsInventory.Units);
+            _inventory.Init(_itemsInventory.Selected, _itemsInventory.Units);
         }
     }
 }

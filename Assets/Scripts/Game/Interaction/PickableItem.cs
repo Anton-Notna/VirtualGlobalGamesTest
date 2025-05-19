@@ -32,8 +32,8 @@ namespace Game.Interaction
         private void Start()
         {
             var type = _data.HasValue ? _data.Value.Type : _type;
-            if (_catalog.Get(_type, out var catalogData) == false)
-                throw new NullReferenceException($"There is no item typeof {_type} in {_catalog.name}");
+            if (_catalog.Get(type, out var catalogData) == false)
+                throw new NullReferenceException($"There is no item typeof {type} in {_catalog.name}");
 
             var gfx = Instantiate(catalogData.Gfx, transform.position, transform.rotation, transform);
             gfx.Collisions = true;

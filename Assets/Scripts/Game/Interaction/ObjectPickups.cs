@@ -28,6 +28,9 @@ namespace Game.Interaction
                 return;
 
             if (hit.collider.TryGetComponent(out IPickable pickable) == false)
+                pickable = hit.collider.GetComponentInParent<IPickable>();
+
+            if (pickable == null)
                 return;
 
             for (int i = 0; i < _pickups.Count; i++)

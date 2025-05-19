@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   _type: 5
-  _gfx: {fileID: 0}
-  _equipped: {fileID: 0}
+  _gfx: {fileID: 3743018273512169180, guid: 2c9b8c64e1b516b43a49b7b416170b0d, type: 3}
   _default:
-    _type: 3
-    _defaultMagazine: 8
-  _maxMagazine: 8
+    _type: 5
+    _defaultMagazine: 2
+  _equipped: {fileID: 3166036497189411820, guid: 8794c7fe25490384baf3cd389b4f039a,
+    type: 3}
+  _maxMagazine: 2
+  _delay: 1
+  _damage: 50
+  _maxDistance: 20
+  _ammoType: 3
+  _reloadDuration: 1

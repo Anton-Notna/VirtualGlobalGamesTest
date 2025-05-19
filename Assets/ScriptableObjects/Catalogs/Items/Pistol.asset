@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   _type: 3
-  _gfx: {fileID: 0}
-  _equipped: {fileID: 0}
+  _gfx: {fileID: 270314865404575804, guid: 2edebb4f6c94e9a4e85c27ce9b6be914, type: 3}
   _default:
     _type: 3
     _defaultMagazine: 8
+  _equipped: {fileID: 5721712864014294570, guid: 1d958f79fd1efcf43b350f1c13539ff0,
+    type: 3}
   _maxMagazine: 8
+  _delay: 1
+  _damage: 10
+  _maxDistance: 999
+  _ammoType: 1
+  _reloadDuration: 1

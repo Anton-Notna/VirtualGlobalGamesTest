@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   _type: 4
-  _gfx: {fileID: 0}
-  _equipped: {fileID: 0}
+  _gfx: {fileID: 1144816568633374161, guid: c02014053158f3e4698e2d5000ed2696, type: 3}
   _default:
-    _type: 3
-    _defaultMagazine: 8
-  _maxMagazine: 8
+    _type: 4
+    _defaultMagazine: 25
+  _equipped: {fileID: 4856034982199693550, guid: a400040f5ea4f6345ab190971b52ece2,
+    type: 3}
+  _maxMagazine: 25
+  _delay: 0.3
+  _damage: 20
+  _maxDistance: 999
+  _ammoType: 2
+  _reloadDuration: 1

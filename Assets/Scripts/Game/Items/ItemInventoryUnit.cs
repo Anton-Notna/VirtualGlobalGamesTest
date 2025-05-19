@@ -11,7 +11,7 @@ namespace Game.Items
         [SerializeField]
         private ItemType _type;
 
-        private JObject _subData;
+        private JObject _subData = new JObject();
         private Action<ItemInventoryUnit> _changed;
 
         public virtual string SubDataInfo => null;
@@ -20,7 +20,14 @@ namespace Game.Items
 
         public ItemType Type => _type;
 
-        public RawItemInventoryUnit AsRaw => new RawItemInventoryUnit(ID, Type, ClassType, _subData);
+        public RawItemInventoryUnit AsRaw 
+        {
+            get
+            {
+                OnBeforeSerialize();
+                return new RawItemInventoryUnit(ID, Type, ClassType, _subData);
+            }
+        } 
 
         protected abstract Type ClassType { get; }
 

@@ -1,4 +1,5 @@
 ﻿using Game.Interaction;
+using Game.Items;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +8,14 @@ namespace Game.Player
     public class PlayerControl : MonoBehaviour
     {
         [SerializeField]
-        private PlayerRotation _rotation;
+        private string _primaryButton = "Fire1";
+        [SerializeField]
+        private string _secondaryButton = "Fire2";
+        [SerializeField]
+        private string _pickupButton = "";
+        [SerializeField]
+        private string _throwButton = "";
+        [Space]
         [SerializeField]
         private ObjectPickups _pickup;
         [SerializeField]
@@ -15,35 +23,35 @@ namespace Game.Player
         [SerializeField]
         private ItemHolder _holder;
 
-        private IPlayerInput _input;
+        private IItemsInventory _inventory;
+
+        public bool Enabled { get; set; }
 
         [Inject]
-        public void Construct(IPlayerInput input)
+        public void Construct(IItemsInventory inventory)
         {
-            _input = input;
+            _inventory = inventory;
         }
 
         private void Update()
         {
-            if (_input == null)
+            if (Enabled == false)
                 return;
 
-            if (_input.Enabled == false)
-                return;
-
-            _rotation.UpdateRotation(_input.Rotation);
-
-            if (_input.Pickup)
+            if (Input.GetButtonDown(_pickupButton))
                 _pickup.TryPickup();
 
-            if (_input.Throw)
+            if (Input.GetButtonDown(_throwButton))
                 _throw.TryThrow();
 
-            if (_input.PrimaryAction)
+            if (Input.GetButton(_primaryButton))
                 _holder.TryPrimaryAction();
 
-            if (_input.SecondaryAction)
+            if (Input.GetButtonDown(_secondaryButton))
                 _holder.TrySecondaryAction();
+
+            if (Input.mouseScrollDelta.y != 0f)
+                _inventory.MoveSelection(Input.mouseScrollDelta.y > 0);
         }
     }
 }
