@@ -16,6 +16,8 @@ namespace Game
         [SerializeField]
         private int _restoreHealthAmount = 1;
 
+        public int RestoreHealthAmount => _restoreHealthAmount;
+
         protected override IEnumerable<ItemType> PossibleTypes => _possibleTypes;
 
         protected override void OnValidate()

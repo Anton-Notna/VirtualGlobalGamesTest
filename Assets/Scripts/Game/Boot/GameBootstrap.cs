@@ -96,6 +96,7 @@ namespace Game.Boot
         private void InstallFactories()
         {
             Container.BindFactoryCustomInterface<Level, Level, PlaceholderFactory<Level, Level>, IFactory<Level, Level>>().FromMethod(Instantiate);
+            Container.BindFactoryCustomInterface<EnemySetup, EnemySetup, PlaceholderFactory<EnemySetup, EnemySetup>, IFactory<EnemySetup, EnemySetup>>().FromMethod(Instantiate);
             Container.BindFactoryCustomInterface<EquippedItem, EquippedItem, PlaceholderFactory<EquippedItem, EquippedItem>, IFactory<EquippedItem, EquippedItem>>().FromMethod(Instantiate);
             Container.BindFactoryCustomInterface<PickableItem, PlaceholderFactory<PickableItem>, IFactory<PickableItem>>().FromComponentInNewPrefab(_pickablePrefab);
         }

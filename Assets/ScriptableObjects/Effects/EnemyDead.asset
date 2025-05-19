@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6372db5173602cb4986ffcaa4a00a973, type: 3}
-  m_Name: Enemies
+  m_Script: {fileID: 11500000, guid: 6be283796b3d96d47a5c64945aec79eb, type: 3}
+  m_Name: EnemyDead
   m_EditorClassIdentifier: 
-  _items:
-  - {fileID: 5980427227864209166, guid: 503c5f795dc7b28458b21abc6eb5b904, type: 3}
-  - {fileID: 5980427227864209166, guid: 2f37169f6ffc72c4aa43aa13b8deac0e, type: 3}
+  _particles: {fileID: 4581736202321700329, guid: 963260a9676a15641a2b88490bb0d57b,
+    type: 3}
+  _sound: {fileID: 0}
+  _rigidBodies: {fileID: 0}
+  _defaultForcePower: 0
+  _defaultCameraShake: 0

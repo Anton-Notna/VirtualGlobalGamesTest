@@ -18,7 +18,6 @@ namespace Game.Damages
                 return false;
 
             data.Amount += _incomeDamageBonus;
-
             return _provider.TakeDamage(point, data);
         }
 

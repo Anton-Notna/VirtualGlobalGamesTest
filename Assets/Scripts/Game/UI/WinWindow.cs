@@ -31,6 +31,7 @@ namespace Game.UI
         {
             _hud.Hide();
             _cursor.Show();
+
             if (completed) 
             {
                 _win.Show(levelIndex + 1);
@@ -59,6 +60,10 @@ namespace Game.UI
             _close.onClick.AddListener(Hide);
         }
 
-        public void Show(int level) => _level.text = level.ToString();
+        public void Show(int level)
+        {
+            _level.text = level.ToString();
+            Show();
+        } 
     }
 }

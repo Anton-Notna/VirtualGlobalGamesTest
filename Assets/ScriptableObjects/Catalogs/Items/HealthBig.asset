@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: HealthBig
   m_EditorClassIdentifier: 
   _type: 2
-  _gfx: {fileID: 0}
+  _gfx: {fileID: 6727437155339125848, guid: d21463334de71dc4092033c27eaf3922, type: 3}
   _default:
     _type: 2
-  _equipped: {fileID: 0}
+  _equipped: {fileID: 7350958295737734056, guid: dff8aa0a3b960174884078debd8e4b71,
+    type: 3}
   _restoreHealthAmount: 100

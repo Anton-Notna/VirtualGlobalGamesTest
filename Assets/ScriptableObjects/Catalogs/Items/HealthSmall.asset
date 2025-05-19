@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: HealthSmall
   m_EditorClassIdentifier: 
   _type: 1
-  _gfx: {fileID: 0}
-  _equipped: {fileID: 0}
+  _gfx: {fileID: 5726403458744916835, guid: a6a0a1916d243f34da3eacf05b1fa9c5, type: 3}
   _default:
     _type: 1
+  _equipped: {fileID: 7350958295737734056, guid: dff8aa0a3b960174884078debd8e4b71,
+    type: 3}
   _restoreHealthAmount: 25

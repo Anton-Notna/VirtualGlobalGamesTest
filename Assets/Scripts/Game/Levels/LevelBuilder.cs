@@ -4,11 +4,11 @@ using UnityEngine;
 using Zenject;
 using Game.Core;
 using Game.Damages;
+using Game.Player;
+using Game.Enemies;
 
 using Object = UnityEngine.Object;
 using Random = System.Random;
-using Game.Player;
-using Game.Enemies;
 
 namespace Game.Levels
 {
@@ -16,15 +16,18 @@ namespace Game.Levels
     {
         private readonly LevelsCatalog _levels;
         private readonly IFactory<Level, Level> _factory;
+        private readonly IFactory<EnemySetup, EnemySetup> _enemyFactory;
+
         private readonly PlayerSetup _player;
         private readonly EnemiesCatalog _enemies;
         private readonly Random _random = new Random();
         private readonly List<GameObject> _spawnedObjects = new List<GameObject>();
 
-        public LevelBuilder(LevelsCatalog levels, IFactory<Level, Level> factory, PlayerSetup player, EnemiesCatalog enemiesCatalog)
+        public LevelBuilder(LevelsCatalog levels, IFactory<Level, Level> factory, IFactory<EnemySetup, EnemySetup> enemyFactory, PlayerSetup player, EnemiesCatalog enemiesCatalog)
         {
             _levels = levels;
             _factory = factory;
+            _enemyFactory = enemyFactory;
             _player = player;
             _enemies = enemiesCatalog;
         }
@@ -39,6 +42,7 @@ namespace Game.Levels
             Level level = _factory.Create(_levels.AsList[levelIndex % _levels.AsList.Count]);
             _spawnedObjects.Add(level.gameObject);
 
+            _player.Init();
             _player.Teleport(level.PlayerSpawnPoint);
 
             List<IHealth> enemies = new List<IHealth>();
@@ -46,8 +50,9 @@ namespace Game.Levels
             {
                 for (int i = 0; i < level.EnemiesSpawnPointsCount; i++)
                 {
-                    EnemySetup enemyPrefab = _enemies.AsList[_random.Next(_enemies.AsList.Count - 1)];
-                    EnemySetup enemy = Object.Instantiate(enemyPrefab, level.GetEnemySpawnPoint(i), Quaternion.identity);
+                    EnemySetup enemyPrefab = _enemies.AsList[_random.Next(0, _enemies.AsList.Count)];
+                    EnemySetup enemy = _enemyFactory.Create(enemyPrefab);
+                    enemy.transform.SetLocalPositionAndRotation(level.GetEnemySpawnPoint(i), Quaternion.identity);
                     enemy.Init();
                     _spawnedObjects.Add(enemy.gameObject);
                     enemies.Add(enemy.Health);

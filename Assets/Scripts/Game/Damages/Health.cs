@@ -44,7 +44,7 @@ namespace Game.Damages
             if (_inited == false)
                 return false;
 
-            if (this.IsDead() == false)
+            if (this.IsDead())
                 return false;
 
             Current -= data.Amount;
@@ -54,6 +54,18 @@ namespace Game.Damages
             _updatable.Update(this);
 
             return true;
+        }
+
+        public void Heal(int health)
+        {
+            if (_inited == false)
+                return;
+
+                Current += health;
+            if (Current > Max)
+                Current = Max;
+
+            _updatable.Update(this);
         }
     }
 }
