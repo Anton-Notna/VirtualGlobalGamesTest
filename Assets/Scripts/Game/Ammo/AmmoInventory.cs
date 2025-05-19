@@ -18,8 +18,12 @@ namespace Game.Ammo
         public void SetData(Dictionary<AmmoType, int> data)
         {
             _units.RemoveAll();
-            foreach (var item in data)
-                Add(item.Key, item.Value);
+
+            if (data != null)
+            {
+                foreach (var item in data)
+                    Add(item.Key, item.Value);
+            }
         }
 
         public Dictionary<AmmoType, int> GetData()

@@ -13,12 +13,12 @@ namespace Game.UI
 
         public async UniTask WaitForHide(CancellationToken cancellationToken)
         {
-            while (Shown)
-                await UniTask.Yield(cancellationToken);
+            while (Shown && cancellationToken.IsCancellationRequested == false)
+                await UniTask.Yield();
         }
 
-        protected void Show() => _canvas.enabled = true;
+        public void Show() => _canvas.enabled = true;
 
-        protected void Hide() => _canvas.enabled = false;
+        public void Hide() => _canvas.enabled = false;
     }
 }

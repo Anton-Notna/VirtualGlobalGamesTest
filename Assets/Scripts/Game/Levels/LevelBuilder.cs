@@ -41,13 +41,14 @@ namespace Game.Levels
 
             _player.Teleport(level.PlayerSpawnPoint);
 
-            List<Health> enemies = new List<Health>();
+            List<IHealth> enemies = new List<IHealth>();
             if (_enemies.AsList.Count > 0)
             {
                 for (int i = 0; i < level.EnemiesSpawnPointsCount; i++)
                 {
                     EnemySetup enemyPrefab = _enemies.AsList[_random.Next(_enemies.AsList.Count - 1)];
                     EnemySetup enemy = Object.Instantiate(enemyPrefab, level.GetEnemySpawnPoint(i), Quaternion.identity);
+                    enemy.Init();
                     _spawnedObjects.Add(enemy.gameObject);
                     enemies.Add(enemy.Health);
                 }

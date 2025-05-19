@@ -7,19 +7,18 @@ namespace Shared.Storage
     {
         private readonly IStorage _storage;
         private readonly Dictionary<string, IUnit> _units = new Dictionary<string, IUnit>();
-        private readonly Dictionary<Type, object> _defaults = new Dictionary<Type, object>();
 
         public DataSaveLoad(IStorage storage)
         {
             _storage = storage;
         }
 
-        public void Register<T>(string key, ISerializableObject<T> serializableObject)
+        public void Register<T>(string key, ISerializableObject<T> serializableObject, T defaultValue = default)
         {
             if (_units.ContainsKey(key))
                 throw new Exception($"Already contains {key} key");
 
-            _units.Add(key, new Unit<T>(key, serializableObject, _storage, FindDefaultSource<T>));
+            _units.Add(key, new Unit<T>(key, serializableObject, _storage, defaultValue));
         }
 
         public void UnregisterAll()
@@ -29,30 +28,22 @@ namespace Shared.Storage
 
         public void Unregister(string key) => _units.Remove(key);
 
-        public void AddDefaultValue<T>(Func<T> source) => _defaults.Add(typeof(T), source);
-
-        public void RemoveDefaultValue<T>() => _defaults.Remove(typeof(T));
-
-        public void RemoveAllDefaultValues() => _defaults.Clear();
-
-        public void SaveAll()
+        public void Save()
         {
             foreach (var unit in _units.Values)
                 unit.Save();
         }
 
-        public void LoadAll()
+        public void Load()
         {
             foreach (var unit in _units.Values)
                 unit.Load();
         }
 
-        private Func<T> FindDefaultSource<T>()
+        internal void Reset()
         {
-            if (_defaults.TryGetValue(typeof(T), out var source))
-                return source as Func<T>;
-
-            return null;
+            foreach (var unit in _units.Values)
+                unit.Reset();
         }
 
         private class Unit<T> : IUnit
@@ -60,9 +51,9 @@ namespace Shared.Storage
             private readonly string _key;
             private readonly ISerializableObject<T> _serializableObject;
             private readonly IStorage _storage;
-            private readonly Func<Func<T>> _default;
+            private readonly T _default;
 
-            public Unit(string key, ISerializableObject<T> serializableObject, IStorage storage, Func<Func<T>> @default)
+            public Unit(string key, ISerializableObject<T> serializableObject, IStorage storage, T @default)
             {
                 _key = key;
                 _serializableObject = serializableObject;
@@ -73,18 +64,18 @@ namespace Shared.Storage
             public void Load()
             {
                 if (_storage.Load(_key, out T data) == false)
-                {
-                    var source = _default.Invoke();
-                    if (source == null)
-                        throw new NullReferenceException($"There is no save and default value for key:{_key}, type: {typeof(T)}");
-
-                    data = source.Invoke();
-                }
+                    data = _default;
 
                 _serializableObject.SetData(data);
             }
 
             public void Save() => _storage.Save(_key, _serializableObject.GetData());
+
+            public void Reset()
+            {
+                _serializableObject.SetData(_default);
+                _storage.Save(_key, _default);
+            }
         }
 
         private interface IUnit
@@ -92,6 +83,8 @@ namespace Shared.Storage
             public void Save();
 
             public void Load();
+
+            public void Reset();
         }
     }
 }

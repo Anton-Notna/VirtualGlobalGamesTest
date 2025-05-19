@@ -1,4 +1,5 @@
 ﻿using Game.Damages;
+using System;
 using UnityEngine;
 
 namespace Game.Enemies
@@ -8,6 +9,11 @@ namespace Game.Enemies
         [SerializeField]
         private Health _health;
 
-        public Health Health => _health;
+        public IHealth Health => _health;
+
+        public void Init()
+        {
+            _health.Init();
+        }
     }
 }

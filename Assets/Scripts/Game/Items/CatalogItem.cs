@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Game.Player;
 
 namespace Game.Items
 {
@@ -13,14 +12,12 @@ namespace Game.Items
         private ItemType _type;
         [SerializeField]
         private ItemGfx _gfx;
-        [SerializeField]
-        private EquippedItem _equipped;
 
         public ItemType Key => _type;
 
         public ItemGfx Gfx => _gfx;
 
-        public EquippedItem Equipped => _equipped;
+        public abstract EquippedItem Equipped { get; }
 
         protected abstract IEnumerable<ItemType> PossibleTypes { get; }
 

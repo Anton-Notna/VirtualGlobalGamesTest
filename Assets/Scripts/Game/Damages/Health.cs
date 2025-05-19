@@ -21,10 +21,12 @@ namespace Game.Damages
 
         public IUpdatable<IHealth> AsUpdatable => _updatable;
 
-        public void Init()
+        public void Init() => Init(_initialHp);
+
+        public void Init(int current)
         {
-            Current = _initialHp;
             Max = _initialHp;
+            Current = Mathf.Clamp(current, 0, Max);
 
             if (_damageableParts != null)
             {

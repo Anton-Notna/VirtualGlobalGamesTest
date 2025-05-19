@@ -15,12 +15,23 @@ namespace Game.UI
         [SerializeField]
         private InventoryView _inventory;
 
+        private PlayerSetup _playerSetup;
+        private IReadOnlyAmmoInventory _ammoInventory;
+        private IReadOnlyItemsInventory _itemsInventory;
+
         [Inject]
         public void Construct(PlayerSetup player, IReadOnlyAmmoInventory ammo, IReadOnlyItemsInventory items)
         {
-            _heath.Init(player.Health.AsUpdatable);
-            _ammo.Init(ammo.Units);
-            _inventory.Init(items.Units);
+            _playerSetup = player;
+            _ammoInventory = ammo;
+            _itemsInventory = items;
+        }
+
+        private void Start()
+        {
+            _heath.Init(_playerSetup.Health.AsUpdatable);
+            _ammo.Init(_ammoInventory.Units);
+            _inventory.Init(_itemsInventory.Units);
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using Game.Items;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Game.Player
+namespace Game.Items
 {
     public abstract class EquippedItem : MonoBehaviour
     {

@@ -28,6 +28,10 @@ namespace Game.Boot
         [Header("Windows:")]
         [SerializeField]
         private GameHUD _hud;
+        [SerializeField]
+        private WinWindow _win;
+        [SerializeField]
+        private LoseWindow _lose;
         [Header("SceneObjects:")]
         [SerializeField]
         private PlayerSetup _playerSetup;
@@ -41,12 +45,10 @@ namespace Game.Boot
         {
             InstallFactories();
 
+            Container.BindInstances(_levels, _enemies, _items);
             Container.Bind<IStorage>().To<PlayerPrefsJsonStorage>().AsSingle();
-
-            Container.BindInstance(_levels);
-            Container.BindInstance(_enemies);
-            Container.BindInstance(_items);
             Container.Bind<ILevelBuilder>().To<LevelBuilder>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CursorBehaviour>().AsSingle();
 
             _ammoInventory = Container.Instantiate<AmmoInventory>();
             Container.BindInterfacesAndSelfTo<AmmoInventory>().FromInstance(_ammoInventory);
@@ -57,14 +59,14 @@ namespace Game.Boot
             _save = Container.Instantiate<DataSaveLoad>();
             Container.BindInstance(_save);
 
-            Container.Bind<IEnumerable<IObjectPickup>>().FromInstance(new List<IObjectPickup>()
+            var pickups = new List<IObjectPickup>()
             {
                 Container.Instantiate<AmmoPickup>(),
                 Container.Instantiate<ItemPickup>(),
-            });
-
-            Container.BindInstance(_playerSetup);
-            Container.BindInstance(_hud);
+            };
+            Container.Bind<IEnumerable<IObjectPickup>>().FromInstance(pickups);
+            Container.BindInstances(_playerSetup, _hud, _win, _lose);
+            Container.Bind<ILevelResultShowcase>().To<Windows>().AsSingle();
 
             _scenario = Container.Instantiate<GameScenario>();
             Container.BindInstance(_scenario);
@@ -93,9 +95,9 @@ namespace Game.Boot
 
         private void InstallFactories()
         {
-            Container.BindFactory<Level, Level, PlaceholderFactory<Level, Level>>().FromMethod(Instantiate);
-            Container.BindFactory<EquippedItem, EquippedItem, PlaceholderFactory<EquippedItem, EquippedItem>>().FromMethod(Instantiate);
-            Container.BindFactory<PickableItem, PlaceholderFactory<PickableItem>>().FromComponentInNewPrefab(_pickablePrefab);
+            Container.BindFactoryCustomInterface<Level, Level, PlaceholderFactory<Level, Level>, IFactory<Level, Level>>().FromMethod(Instantiate);
+            Container.BindFactoryCustomInterface<EquippedItem, EquippedItem, PlaceholderFactory<EquippedItem, EquippedItem>, IFactory<EquippedItem, EquippedItem>>().FromMethod(Instantiate);
+            Container.BindFactoryCustomInterface<PickableItem, PlaceholderFactory<PickableItem>, IFactory<PickableItem>>().FromComponentInNewPrefab(_pickablePrefab);
         }
     }
 }

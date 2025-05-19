@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Shared.Storage;
 using System.Threading;
 
 namespace Game.Core
@@ -7,9 +8,9 @@ namespace Game.Core
     {
         private readonly ILevelBuilder _builder;
         private readonly ILevelResultShowcase _showcase;
-        private readonly IGameData _data;
+        private readonly DataSaveLoad _data;
 
-        public GameScenario(ILevelBuilder builder, ILevelResultShowcase showcase, IGameData data)
+        public GameScenario(ILevelBuilder builder, ILevelResultShowcase showcase, DataSaveLoad data)
         {
             _builder = builder;
             _showcase = showcase;
@@ -44,10 +45,13 @@ namespace Game.Core
             ILevelInfo info = _builder.Build(level);
             _data.Load();
 
-            while (info.AlivePlayer && info.AliveEnemies > 0)
-                await UniTask.Yield(cancellationToken);
+            while (info.AlivePlayer && info.AliveEnemies > 0 && cancellationToken.IsCancellationRequested == false)
+                await UniTask.Yield();
 
-            bool success = cancellationToken.IsCancellationRequested ? false : info.AlivePlayer;
+            if (cancellationToken.IsCancellationRequested)
+                return false;
+
+            bool success = info.AlivePlayer;
 
             _data.Save();
             info.Dispose();

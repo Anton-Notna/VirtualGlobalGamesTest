@@ -1,5 +1,4 @@
 ﻿using Game.Damages;
-using System;
 using UnityEngine;
 
 namespace Game.Player
@@ -11,14 +10,14 @@ namespace Game.Player
 
         public Health Health => _health;
 
-        internal void Init()
+        public void Init()
         {
-            throw new NotImplementedException();
+            _health.Init();
         }
 
-        internal void Teleport(Vector3 playerSpawnPoint)
+        public void Teleport(Vector3 playerSpawnPoint)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

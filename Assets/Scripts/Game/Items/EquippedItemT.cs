@@ -1,7 +1,6 @@
-﻿using Game.Items;
-using System;
+﻿using System;
 
-namespace Game.Player
+namespace Game.Items
 {
     public abstract class EquippedItem<T> : EquippedItem where T : IItemInventoryUnit
     {

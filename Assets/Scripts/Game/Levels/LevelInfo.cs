@@ -9,7 +9,7 @@ namespace Game.Levels
     public class LevelInfo : ILevelInfo
     {
         private readonly IHealth _player;
-        private readonly HashSet<IHealth> _aliveEnemies;
+        private readonly HashSet<IHealth> _aliveEnemies = new HashSet<IHealth>();
         private readonly List<IDisposable> _subs = new List<IDisposable>();
 
         public int AliveEnemies => _aliveEnemies.Count;

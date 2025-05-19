@@ -15,6 +15,9 @@ namespace Game.UI
 
         protected override void Refresh(IHealth unit)
         {
+            if (unit == null)
+                return;
+
             _amount.text = unit.Current.ToString();
             _fill.fillAmount = unit.Normalized();
         }
